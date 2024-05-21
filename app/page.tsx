@@ -1,18 +1,14 @@
-"use client"
-import React, { useState } from 'react';
-import TaskForm from '@/components/TaskForm';
-import TaskSheet from '@/components/TaskSheet/page';
+"use client";
+import React, { useState } from "react";
+import TaskSheet from "@/components/TaskSheet";
+import * as C from "./styles";
 
 const Home: React.FC = () => {
-
-
-
-
   return (
-    <div>
-      <h1>Task List</h1>
-      <TaskSheet/>
-    </div>
+    <C.Container>
+      <C.Title>Lista de Tarefas</C.Title>
+      <TaskSheet />
+    </C.Container>
   );
 };
 
