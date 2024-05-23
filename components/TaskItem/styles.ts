@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $completed: boolean }>`
   display: flex;
   gap: 2rem;
   width: 100%;
-  background-color: #fff;
+  background-color: ${(props) => (props.$completed ? "#d0d0f0" : "#fff")};
   border-radius: 0.4rem;
   padding: 1rem 2rem;
   justify-content: space-between;
@@ -26,10 +26,10 @@ export const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   display: none;
 `;
 
-export const StyledCheckbox = styled.div<{ checked: boolean }>`
+export const StyledCheckbox = styled.div<{ $completed: boolean }>`
   width: 2.8rem;
   height: 2.8rem;
-  background: ${(props) => (props.checked ? "#1890ff" : "#eeeeee")};
+  background: ${(props) => (props.$completed ? "#fff" : "#eeeeee")};
   border-radius: 0.3rem;
   display: flex;
   align-items: center;
@@ -37,8 +37,8 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
   cursor: pointer;
 
   &:after {
-    content: ${(props) => (props.checked ? '"✔"' : '""')};
-    color: #fff;
+    content: ${(props) => (props.$completed ? '"✔"' : '""')};
+    color: ${(props) => (props.$completed ? "#d0d0f0" : "")};
     font-size: 1.5rem;
   }
 `;
@@ -56,6 +56,7 @@ export const Buttons = styled.div`
 `;
 
 export const Button = styled.button`
+
   background-color: #eeeeee;
   border-radius: 0.6rem;
   border: none;
@@ -65,13 +66,21 @@ export const Button = styled.button`
   text-align: center;
 `;
 
-export const Title = styled.h3<{ completed: boolean }>`
+export const Title = styled.h3<{ $completed: boolean }>`
   font-size: 1.8rem;
-  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
+  text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
+`;
+export const Description = styled.h4<{ $completed: boolean }>`
+  font-weight: 500;
+  margin: .1rem 0 .7rem 0;
+  font-size: 1.4rem;
+  text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
 `;
 
-export const Date = styled.h5`
+export const Date = styled.h5<{ $completed: boolean }>`
   font-size: 1rem;
+  text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
+
 `;
 export const Input = styled.input`
   padding: 0.8rem;

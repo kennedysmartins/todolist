@@ -3,7 +3,6 @@ import { Form, Field, ErrorMessage } from "formik";
 
 export const Main = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 1.4rem;
   width: 100%;
   margin-top: 2rem;
@@ -11,13 +10,14 @@ export const Main = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 1.4rem;
 
 `;
 
 
 export const Button = styled.button`
-  background-color: #1890ff;
+  background-color: #6363e2;
   border-radius: 0.6rem;
   border: none;
   padding: 1rem 2rem;
@@ -39,6 +39,22 @@ export const StyledField = styled(Field)`
     color: #999;
   }
 `;
+
+export const TextareaField = styled(Field)`
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  border: none;
+  background-color: #ecedf6;
+  font-size: 1.8rem;
+  width: 100%;
+  resize: vertical;
+
+
+  &::placeholder {
+    color: #999;
+  }
+`;
+
 
 export const ErrorMessageStyled = styled(ErrorMessage)`
   color: red;
