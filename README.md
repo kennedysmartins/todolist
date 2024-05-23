@@ -2,6 +2,9 @@
 
 Este é um projeto desenvolvido como parte de um desafio para criar um gerenciador de tarefas simples. O objetivo é criar uma aplicação onde o usuário possa adicionar, visualizar, editar e excluir tarefas.
 
+## Preview 🌐
+[![Preview do Site](./.github/preview.png)](https://github.com/kennedysmartins/todolist)
+
 ## Funcionalidades
 
 - Adicionar uma nova tarefa com título e descrição.
