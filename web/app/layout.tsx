@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Desafio Hubbi - Frontend"
+  title: "Todolist"
 };
 
 export default function RootLayout({
