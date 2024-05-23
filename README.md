@@ -38,21 +38,21 @@ Para executar o projeto localmente, siga os passos abaixo:
 2. Instale as dependências do frontend:
 
 ```sh
-cd todolist
+cd web
 npm install
 ```
 
 3. Inicie o servidor do backend
 
 ```sh
-cd todolistAPI
-npm start
+cd server
+npm run start
 ```
 
 4. Inicie a aplicação frontend:
 
 ```sh
-cd todolist
+cd web
 npm start
 ```
 
