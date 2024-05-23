@@ -1,89 +1,145 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TaskForm from "@/components/TaskForm";
 import TaskItem from "@/components/TaskItem";
 import * as C from "./styles";
+import { createTask, fetchTasks, updateTask, deleteTask as removeTask } from "@/lib/api";
+import Modal from "../Modal";
+import TaskFormEdit from "../TaskFormEdit";
 
 interface Task {
-  id: number;
-  text: string;
+  id: string;
+  title: string;
+  description?: string;
   completed: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface TaskValues {
+  title: string;
+  description?: string;
 }
 
 const TaskSheet: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 1716315763941,
-      text: "Doctor Appointment",
-      completed: true,
-    },
-    {
-      id: 1716315785959,
-      text: "Meeting at School",
-      completed: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
-  const addTask = (text: string) => {
-    const newTask = {
-      id: Date.now(),
-      text,
-      completed: false,
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks();
+        setTasks(fetchedTasks);
+      } catch (error) {
+        console.error("Erro ao carregar tasks:", error);
+      }
     };
-    setTasks([...tasks, newTask]);
+    loadTasks();
+  }, []);
+
+
+
+  const openModal = (id: string) => {
+    setEditingTaskId(id);
+    setIsModalOpen(true);
   };
 
-  function deleteTask(id: number) {
-    setTasks(tasks.filter((task) => task.id !== id));
-  }
+  const closeModal = () => {
+    setEditingTaskId(null);
+    setIsModalOpen(false);
+  };
 
-  function editTask(id: number, text: string) {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, text };
-        } else {
-          return task;
-        }
-      })
-    );
-  }
+  const addTask = async (title: string, description: string) => {
+    try {
+      const newTask = await createTask({ title, description });
+      if (newTask) {
+        setTasks((prevTasks) => [...prevTasks, newTask]);
+      }
+    } catch (error) {
+      console.error("Erro ao adicionar a task:", error);
+    }
+  };
 
-  function toggleCompleted(id: number) {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, completed: !task.completed };
-        } else {
-          return task;
-        }
-      })
-    );
-  }
+  const deleteTask = async (id: string) => {
+    try {
+      const success = await removeTask(id);
+      if (success) {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      }
+    } catch (error) {
+      console.error("Erro ao excluir a task:", error);
+    }
+  };
+
+
+  const toggleCompleted = async (id: string) => {
+    const task = tasks.find((task) => task.id === id);
+    if (!task) return;
+    try {
+      const success = await updateTask(id, { completed: !task.completed });
+      if (success) {
+        setTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task.id === id ? { ...task, completed: !task.completed } : task
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Erro ao alternar a conclusão da task:", error);
+    }
+  };
+
+  const editTaskSubmit = async (values: TaskValues, actions: any) => {
+    if (!editingTaskId) return;
+    try {
+      const success = await updateTask(editingTaskId, values);
+      if (success) {
+        setTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task.id === editingTaskId ? { ...task, ...values } : task
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar a task:", error);
+    } finally {
+      actions.setSubmitting(false);
+      closeModal();
+    }
+  };
 
   return (
     <>
       <TaskForm
         onSubmit={(values, { resetForm }) => {
-          addTask(values.task);
+          addTask(values.title, values.description ?? "");
           resetForm();
         }}
       />
-
+  
       <C.List>
-        {tasks.map((task) => (
-          <TaskItem
-            task={task}
-            key={task.id}
-            deleteTask={() => deleteTask(task.id)}
-            toggleCompleted={() => toggleCompleted(task.id)}
-            editTask={(id: number, text: string) => editTask(id, text)}
-          />
-        ))}
-
+        {tasks.length === 0 ? (
+          <p>Crie sua primeira tarefa 📋</p>
+        ) : (
+          tasks.map((task) => (
+            <TaskItem
+              task={task}
+              key={task.id}
+              deleteTask={() => deleteTask(task.id)}
+              toggleCompleted={() => toggleCompleted(task.id)}
+              editTask={() => openModal(task.id)}
+            />
+          ))
+        )}
       </C.List>
+      {editingTaskId && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <TaskFormEdit id={editingTaskId} onSubmit={editTaskSubmit} />
+        </Modal>
+      )}
     </>
   );
-};
+}
 
 export default TaskSheet;
