@@ -20,10 +20,9 @@ Este é um projeto desenvolvido como parte de um desafio para criar um gerenciad
 
 O projeto está estruturado da seguinte forma:
 
-- `todolist/`: Contém o código-fonte do frontend, desenvolvido em React.js.
-- `todolistAPI/`: Contém o código-fonte do backend, desenvolvido em Node.js e Nest.js.
-- `database/`: Contém os scripts de criação e configuração do banco de dados sqlite.
-- `docs/`: Contém a documentação do projeto.
+- `web/`: Contém o código-fonte do frontend, desenvolvido em React.js.
+- `server/`: Contém o código-fonte do backend, desenvolvido em Node.js Nest.js, utilizando o SQLite como banco de dados juntamente com Prisma.
+
 
 ## Instalação e Execução
 
@@ -42,21 +41,28 @@ cd web
 npm install
 ```
 
-3. Inicie o servidor do backend
+3. Instale as dependências do backend:
+
+```sh
+cd server
+npm install
+```
+
+4. Inicie o servidor do backend
 
 ```sh
 cd server
 npm run start
 ```
 
-4. Inicie a aplicação frontend:
+5. Inicie a aplicação frontend:
 
 ```sh
 cd web
 npm start
 ```
 
-A aplicação estará disponível em http://localhost:3000.
+A aplicação estará disponível em http://localhost:3000 e o backend em https://localhost:4000
 
 ## Contribuição
 
