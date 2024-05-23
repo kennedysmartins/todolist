@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <C.HeaderContainer>
       <C.Wrapper>
-          <C.Logo src="/hubbi-logo-white.png" alt="logo" />
+          <C.Logo src="/logo.png" alt="logo" />
           <C.Avatar src="https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_grey_512dp.png" alt="avatar" />
       </C.Wrapper>
     </C.HeaderContainer>
