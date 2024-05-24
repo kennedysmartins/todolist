@@ -51,14 +51,17 @@ cd server
 npm install
 ```
 
-4. Inicie o servidor do backend
+4. Configure o arquivo .env.example para.env e preencha as variáveis de ambiente.
+
+
+5. Inicie o servidor do backend
 
 ```sh
 cd server
 npm run start
 ```
 
-5. Inicie a aplicação frontend:
+6. Inicie a aplicação frontend:
 
 ```sh
 cd web
