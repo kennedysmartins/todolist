@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Modal from "@/components/Modal";
-import {TaskForm, TaskFormEdit, TaskItem} from "@/components/Tasks";
+import { TaskForm, TaskFormEdit, TaskItem } from "@/components/Tasks";
 import { useTasks } from "@/hooks/useTasks";
 import * as C from "./styles";
 
@@ -18,6 +18,11 @@ const TaskSheet: React.FC = () => {
     editTaskSubmit,
   } = useTasks();
 
+  const sortedTasks = [...tasks].map(task => ({
+    ...task,
+    createdAt: typeof task.createdAt === 'string' ? new Date(task.createdAt) : task.createdAt
+  })).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
   return (
     <>
       <TaskForm
@@ -28,10 +33,10 @@ const TaskSheet: React.FC = () => {
       />
 
       <C.List>
-        {tasks.length === 0 ? (
+        {sortedTasks.length === 0 ? (
           <p>Crie sua primeira tarefa 📋</p>
         ) : (
-          tasks.map((task) => (
+          sortedTasks.map((task) => (
             <TaskItem
               task={task}
               key={task.id}
