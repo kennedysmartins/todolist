@@ -1,12 +1,7 @@
-"use client"
+// Importando os tipos
 import React, { ReactNode } from 'react';
 import * as C from './styles';
-
-interface ModalProps {
-  children: ReactNode;
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { ModalProps } from "@/types";
 
 const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   if (!isOpen) return null;

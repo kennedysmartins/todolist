@@ -3,15 +3,11 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import * as C from "./styles";
-import Modal from "../Modal";
+import Modal from "@/components/Modal";
+import { TaskValues } from "@/types";
 
 interface TaskFormProps {
   onSubmit: (values: TaskValues, actions: any) => void;
-}
-
-interface TaskValues {
-  title: string;
-  description?: string
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {

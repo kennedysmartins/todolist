@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import TaskSheet from "@/components/TaskSheet";
 import * as C from "./styles";
+import { TaskSheet } from "@/components/Tasks";
+
 
 const Home: React.FC = () => {
   return (

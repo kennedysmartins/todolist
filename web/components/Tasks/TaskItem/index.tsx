@@ -2,6 +2,7 @@
 import * as React from "react";
 import * as C from "./styles";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Task } from "@/types";
 
 const TaskItem = ({
   task,
@@ -9,19 +10,11 @@ const TaskItem = ({
   toggleCompleted,
   editTask,
 }: {
-  task: {
-    id: string;
-    title: string;
-    description?: string;
-    completed: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-  deleteTask: () => void;
+  task: Task;
+  deleteTask: (id: string) => void;
   toggleCompleted: (id: string) => void;
   editTask: (id: string) => void;
 }) => {
-  const [inputValue, setInputValue] = React.useState(task.title);
 
   return (
     <C.Container $completed={task.completed}>
@@ -47,7 +40,7 @@ const TaskItem = ({
         </C.Item>
       </C.Flex>
       <C.Buttons>
-        <C.Button onClick={deleteTask}>
+        <C.Button onClick={() => deleteTask(task.id)}>
           <FaTrash />
         </C.Button>
         <C.Button onClick={() => editTask(task.id)}>
