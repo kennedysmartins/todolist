@@ -51,7 +51,17 @@ cd server
 npm install
 ```
 
-4. Configure o arquivo .env.example para.env e preencha as variáveis de ambiente.
+4. Configure o arquivo .env.example para.env tanto no frontend quanto no backend e preencha as variáveis de ambiente.
+
+```sh
+#web
+BACKEND_URL=http://localhost:4000
+```
+
+```sh
+#server
+DATABASE_URL="file:./dev.db"
+```
 
 
 5. Inicie o servidor do backend
