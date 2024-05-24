@@ -1,16 +1,8 @@
 "use server"
 import axios from "axios";
+import { Task } from "@/types";
 
 const apiUrl = process.env.BACKEND_URL!;
-
-export interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  completed: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 export const createTask = async (data: { title: string; description: string }): Promise<Task | null> => {
   try {
